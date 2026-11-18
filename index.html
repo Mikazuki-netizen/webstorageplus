@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StoragePlus Basic - Aplikasi Pencadangan Cloud Otomatis & Keamanan Media</title>
+  <meta name="description" content="StoragePlus Basic: Aplikasi Android untuk sinkronisasi otomatis foto & video ke Google Drive di latar belakang, dilengkapi proteksi PIN 6-digit, galeri cloud pintar, dan audit hardware.">
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#0b1329',
+            },
+            dark: {
+              bg: '#080d1a',
+              card: '#0f172a',
+              border: '#1e293b',
+              accent: '#38bdf8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#070b14] text-slate-100 min-h-screen relative selection:bg-blue-600 selection:text-white">
+
+  <!-- Glow effects -->
+  <div class="glow-spot w-96 h-96 bg-blue-600/15 top-10 left-1/4"></div>
+  <div class="glow-spot w-[32rem] h-[32rem] bg-cyan-600/10 top-96 right-10"></div>
+  <div class="glow-spot w-80 h-80 bg-indigo-600/15 bottom-96 left-10"></div>
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Brand Logo & Title -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="relative w-11 h-11 rounded-2xl overflow-hidden p-0.5 bg-gradient-to-tr from-blue-600 to-cyan-400 shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
+          <img src="assets/icon.png" alt="StoragePlus Logo" class="w-full h-full object-cover rounded-[14px]">
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">StoragePlus</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">Basic</span>
+          </div>
+          <p class="text-xs text-slate-400 font-medium">Cloud Sync & Media Security</p>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#fitur" class="hover:text-white transition-colors">Fitur Utama</a>
+        <a href="#demo" class="hover:text-white transition-colors">Demo Interaktif</a>
+        <a href="#spesifikasi" class="hover:text-white transition-colors">Spesifikasi</a>
+        <a href="#panduan" class="hover:text-white transition-colors">Panduan Install</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="StoragePlus-Basic.apk" download="StoragePlus-Basic.apk" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold text-sm shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Unduh APK (12.6 MB)</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white" aria-label="Buka Menu">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-nav" class="hidden md:hidden border-t border-slate-800 bg-slate-950/95 px-4 pt-3 pb-6 space-y-3">
+      <a href="#fitur" class="block py-2 text-slate-300 hover:text-white">Fitur Utama</a>
+      <a href="#demo" class="block py-2 text-slate-300 hover:text-white">Demo Interaktif</a>
+      <a href="#spesifikasi" class="block py-2 text-slate-300 hover:text-white">Spesifikasi</a>
+      <a href="#panduan" class="block py-2 text-slate-300 hover:text-white">Panduan Install</a>
+      <a href="#faq" class="block py-2 text-slate-300 hover:text-white">FAQ</a>
+      <div class="pt-2">
+        <a href="StoragePlus-Basic.apk" download="StoragePlus-Basic.apk" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-600 text-white font-semibold text-sm">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Unduh StoragePlus-Basic.apk</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 space-y-7 text-center lg:text-left">
+          
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-semibold">
+            <span class="flex h-2 w-2 rounded-full bg-blue-400 animate-ping"></span>
+            <span>Rilis Resmi Android • StoragePlus Basic Edition v1.0</span>
+          </div>
+
+          <!-- Title -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
+            Pencadangan Cloud Otomatis. <br>
+            <span class="gradient-text">Privasi & Media Aman.</span>
+          </h1>
+
+          <!-- Description -->
+          <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            Aplikasi Android modern berbasis <span class="text-blue-400 font-medium">Jetpack Compose</span> untuk mencadangkan foto & video secara otomatis ke Google Drive tanpa repot. Dilengkapi keamanan PIN 6-digit, audit performa baterai cerdas, serta penjelajah media latar belakang.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="StoragePlus-Basic.apk" download="StoragePlus-Basic.apk" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-base shadow-xl shadow-blue-600/30 hover:shadow-cyan-500/30 hover:-translate-y-0.5 transition-all">
+              <i data-lucide="download-cloud" class="w-5 h-5"></i>
+              <span>Unduh StoragePlus-Basic.apk</span>
+            </a>
+            <a href="#demo" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-800 font-semibold text-base hover:-translate-y-0.5 transition-all">
+              <i data-lucide="smartphone" class="w-5 h-5 text-blue-400"></i>
+              <span>Coba Demo Interaktif</span>
+            </a>
+          </div>
+
+          <!-- Metadata Quick Bar -->
+          <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+              <i data-lucide="file-code" class="w-4 h-4 text-blue-400"></i>
+              <span>Ukuran: <strong class="text-slate-200">12.56 MB</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+              <span>Android: <strong class="text-slate-200">8.0 - 14+</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i>
+              <span>Paket: <strong class="text-slate-200">com.mika.storageplus</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>
+              <span>Bebas Malware & Adware</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Preview: Interactive Smartphone Mockup -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-[340px]">
+            <!-- Decorative Glow Behind Phone -->
+            <div class="absolute -inset-4 bg-gradient-to-tr from-blue-600/30 to-cyan-500/30 rounded-[50px] blur-2xl -z-10"></div>
+            
+            <!-- Smartphone Shell -->
+            <div class="phone-mockup border-slate-800 bg-[#060a12]">
+              <!-- Phone Notch -->
+              <div class="notch">
+                <div class="camera-lens"></div>
+                <div class="w-8 h-1.5 bg-slate-800 rounded-full"></div>
+              </div>
+
+              <!-- Phone Screen Content (Inside Frame) -->
+              <div class="phone-screen-container p-4">
+
+                <!-- SCREEN 1: DASHBOARD (Default) -->
+                <div id="screen-dashboard" class="space-y-4">
+                  <!-- App Bar inside Phone -->
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded-lg overflow-hidden bg-blue-600 p-0.5">
+                        <img src="assets/icon.png" alt="Mini Icon" class="w-full h-full object-cover rounded-md">
+                      </div>
+                      <div>
+                        <div class="text-xs font-bold text-white">StoragePlus</div>
+                        <div class="text-[9px] text-emerald-400 flex items-center gap-1">
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                          Cloud Terhubung
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-[9px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono">60 FPS</span>
+                      <div class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+                        <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Status Header Card -->
+                  <div class="p-3.5 rounded-2xl bg-gradient-to-br from-blue-900/40 to-slate-900/90 border border-blue-500/30 shadow-md">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-[10px] uppercase font-bold tracking-wider text-blue-400">Status Google Drive</span>
+                      <i data-lucide="cloud-check" class="w-4 h-4 text-emerald-400"></i>
+                    </div>
+                    <div class="text-sm font-bold text-white">Sinkronisasi Aktif</div>
+                    <p class="text-[10px] text-slate-300 mt-0.5">Media baru otomatis diunggah ke Google Drive.</p>
+                    
+                    <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[10px]">
+                      <span class="text-slate-400">Tersinkronisasi:</span>
+                      <span class="font-bold text-blue-300 font-mono">1,842 File (6.8 GB)</span>
+                    </div>
+                  </div>
+
+                  <!-- Auto-Backup Switch Card -->
+                  <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                    <div class="space-y-0.5 pr-2">
+                      <div class="text-xs font-semibold text-white">Pencadangan Otomatis</div>
+                      <div id="mockup-autobackup-badge" class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-block">
+                        Aktif (Latar Belakang)
+                      </div>
+                    </div>
+                    <!-- Toggle Switch -->
+                    <button id="mockup-autobackup-toggle" class="w-11 h-6 bg-blue-600 rounded-full p-0.5 transition-colors duration-200 cursor-pointer flex items-center">
+                      <div id="mockup-autobackup-thumb" class="w-5 h-5 bg-white rounded-full shadow-md transform translate-x-5 transition-transform duration-200"></div>
+                    </button>
+                  </div>
+
+                  <!-- Battery & Wi-Fi Protection Card -->
+                  <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between text-[11px]">
+                      <div class="flex items-center gap-1.5 text-slate-300">
+                        <i data-lucide="battery-charging" class="w-3.5 h-3.5 text-emerald-400"></i>
+                        <span>Proteksi Baterai</span>
+                      </div>
+                      <span class="text-emerald-400 font-mono text-[10px] font-bold">87% • Aman</span>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px]">
+                      <div class="flex items-center gap-1.5 text-slate-300">
+                        <i data-lucide="wifi" class="w-3.5 h-3.5 text-blue-400"></i>
+                        <span>Jaringan Prioritas</span>
+                      </div>
+                      <span class="text-blue-400 font-mono text-[10px]">Wi-Fi / Data</span>
+                    </div>
+                  </div>
+
+                  <!-- Quick Action Menu -->
+                  <div class="grid grid-cols-2 gap-2 pt-1">
+                    <button onclick="document.querySelector('[data-tab=gallery]').click()" class="p-2.5 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 text-left">
+                      <i data-lucide="folder-image" class="w-4 h-4 text-blue-400 mb-1"></i>
+                      <div class="text-[11px] font-semibold text-white">Galeri Cloud</div>
+                      <div class="text-[9px] text-slate-400">Lihat & Unduh</div>
+                    </button>
+                    <button onclick="document.querySelector('[data-tab=pin]').click()" class="p-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 text-left">
+                      <i data-lucide="lock" class="w-4 h-4 text-amber-400 mb-1"></i>
+                      <div class="text-[11px] font-semibold text-white">Kunci PIN</div>
+                      <div class="text-[9px] text-slate-400">Proteksi 6-Digit</div>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- SCREEN 2: CLOUD GALLERY (Hidden by default) -->
+                <div id="screen-gallery" class="hidden space-y-3">
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                    <div class="flex items-center gap-1.5">
+                      <button onclick="document.querySelector('[data-tab=dashboard]').click()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400">
+                        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                      </button>
+                      <span class="text-xs font-bold text-white">Galeri Google Drive</span>
+                    </div>
+                    <span class="text-[9px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-semibold">1,842 File</span>
+                  </div>
+
+                  <!-- Filter Chips -->
+                  <div class="flex items-center gap-1.5 text-[10px]">
+                    <span class="px-2.5 py-1 rounded-full bg-blue-600 text-white font-medium">Semua</span>
+                    <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Foto (1,420)</span>
+                    <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Video (422)</span>
+                  </div>
+
+                  <!-- Media Grid Mockup -->
+                  <div class="grid grid-cols-3 gap-1.5">
+                    <div class="aspect-square rounded-lg bg-gradient-to-tr from-blue-700 to-indigo-800 relative overflow-hidden group">
+                      <div class="absolute inset-0 flex items-center justify-center text-white/50 text-[10px]">IMG_001</div>
+                      <div class="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400"></div>
+                    </div>
+                    <div class="aspect-square rounded-lg bg-gradient-to-tr from-cyan-700 to-teal-800 relative overflow-hidden">
+                      <div class="absolute inset-0 flex items-center justify-center text-white/50 text-[10px]">IMG_002</div>
+                      <div class="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-black/60 text-[8px] text-white">0:14</div>
+                    </div>
+                    <div class="aspect-square rounded-lg bg-gradient-to-tr from-violet-700 to-purple-800 relative overflow-hidden">
+                      <div class="absolute inset-0 flex items-center justify-center text-white/50 text-[10px]">IMG_003</div>
+                    </div>
+                    <div class="aspect-square rounded-lg bg-gradient-to-tr from-pink-700 to-rose-800 relative overflow-hidden">
+                      <div class="absolute inset-0 flex items-center justify-center text-white/50 text-[10px]">IMG_004</div>
+                    </div>
+                    <div class="aspect-square rounded-lg bg-gradient-to-tr from-amber-700 to-orange-800 relative overflow-hidden">
+                      <div class="absolute inset-0 flex items-center justify-center text-white/50 text-[10px]">IMG_005</div>
+                      <div class="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-black/60 text-[8px] text-white">1:02</div>
+                    </div>
+                    <div class="aspect-square rounded-lg bg-gradient-to-tr from-emerald-700 to-teal-900 relative overflow-hidden">
+                      <div class="absolute inset-0 flex items-center justify-center text-white/50 text-[10px]">IMG_006</div>
+                    </div>
+                  </div>
+
+                  <!-- Download destination banner -->
+                  <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-[10px] text-slate-300 flex items-center justify-between">
+                    <div class="flex items-center gap-1.5">
+                      <i data-lucide="download" class="w-3.5 h-3.5 text-blue-400"></i>
+                      <span>Simpan ke: <strong>Download/StoragePlus</strong></span>
+                    </div>
+                    <button class="px-2 py-0.5 rounded-md bg-blue-600 text-white font-medium">Unduh</button>
+                  </div>
+                </div>
+
+                <!-- SCREEN 3: PIN LOCK SCREEN (Hidden by default) -->
+                <div id="screen-pin" class="hidden space-y-4 text-center pt-2">
+                  <div class="w-10 h-10 mx-auto rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shadow-md">
+                    <i data-lucide="lock-keyhole" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold text-white">Kunci Keamanan</div>
+                    <div id="pin-status-text" class="text-[10px] text-slate-400 mt-0.5">Ketik 6 digit PIN (Coba: 123456)</div>
+                  </div>
+
+                  <!-- 6 PIN Dots -->
+                  <div class="flex justify-center items-center gap-2.5 py-1">
+                    <div class="pin-dot w-2.5 h-2.5 rounded-full border border-slate-600 bg-slate-800 transition-all"></div>
+                    <div class="pin-dot w-2.5 h-2.5 rounded-full border border-slate-600 bg-slate-800 transition-all"></div>
+                    <div class="pin-dot w-2.5 h-2.5 rounded-full border border-slate-600 bg-slate-800 transition-all"></div>
+                    <div class="pin-dot w-2.5 h-2.5 rounded-full border border-slate-600 bg-slate-800 transition-all"></div>
+                    <div class="pin-dot w-2.5 h-2.5 rounded-full border border-slate-600 bg-slate-800 transition-all"></div>
+                    <div class="pin-dot w-2.5 h-2.5 rounded-full border border-slate-600 bg-slate-800 transition-all"></div>
+                  </div>
+
+                  <!-- Number Keypad -->
+                  <div class="grid grid-cols-3 gap-2 max-w-[200px] mx-auto pt-1">
+                    <button data-key="1" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">1</button>
+                    <button data-key="2" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">2</button>
+                    <button data-key="3" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">3</button>
+                    <button data-key="4" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">4</button>
+                    <button data-key="5" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">5</button>
+                    <button data-key="6" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">6</button>
+                    <button data-key="7" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">7</button>
+                    <button data-key="8" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">8</button>
+                    <button data-key="9" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">9</button>
+                    <div class="h-10"></div>
+                    <button data-key="0" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-white font-bold text-sm hover:bg-blue-600 transition-colors">0</button>
+                    <button data-key="del" class="pin-key h-10 rounded-xl bg-slate-900 border border-slate-800 text-rose-400 font-bold text-xs flex items-center justify-center hover:bg-rose-950 transition-colors">
+                      <i data-lucide="delete" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- SCREEN 4: HIDDEN BROWSER & BACKGROUND ENGINE -->
+                <div id="screen-browser" class="hidden space-y-3">
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                    <div class="flex items-center gap-1.5">
+                      <button onclick="document.querySelector('[data-tab=dashboard]').click()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400">
+                        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                      </button>
+                      <span class="text-xs font-bold text-white">Stealth Media Engine</span>
+                    </div>
+                    <span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold flex items-center gap-1">
+                      <i data-lucide="shield" class="w-2.5 h-2.5"></i> AdBlock ON
+                    </span>
+                  </div>
+
+                  <!-- Video Mockup Card -->
+                  <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative aspect-video flex flex-col justify-between p-2">
+                    <div class="flex items-center justify-between text-[9px] text-slate-400">
+                      <span>YouTube Music Mode</span>
+                      <span class="text-emerald-400 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Background Audio
+                      </span>
+                    </div>
+                    <div class="text-center py-2">
+                      <i data-lucide="music" class="w-8 h-8 text-blue-400 mx-auto animate-pulse"></i>
+                      <div class="text-[11px] font-bold text-white mt-1">Streaming Bebas Iklan</div>
+                      <div class="text-[9px] text-slate-400">Audio berjalan meski layar mati (PiP)</div>
+                    </div>
+                    <!-- Audio Wave Visualizer -->
+                    <div class="flex items-center justify-center gap-1 h-3">
+                      <span class="w-1 h-2 bg-blue-500 rounded-full animate-bounce"></span>
+                      <span class="w-1 h-3 bg-cyan-400 rounded-full animate-bounce [animation-delay:0.1s]"></span>
+                      <span class="w-1 h-1.5 bg-blue-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                      <span class="w-1 h-3 bg-indigo-500 rounded-full animate-bounce [animation-delay:0.3s]"></span>
+                      <span class="w-1 h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                    </div>
+                  </div>
+
+                  <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1 text-[10px] text-slate-300">
+                    <div class="font-semibold text-white flex items-center gap-1">
+                      <i data-lucide="check" class="w-3.5 h-3.5 text-blue-400"></i>
+                      Background Playback Aktif
+                    </div>
+                    <p class="text-slate-400">Memotong jeda video otomatis dan menolak popup "Lanjutkan menonton".</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Screen switcher indicator tabs -->
+            <div class="mt-4 flex items-center justify-center gap-2">
+              <button data-tab="dashboard" class="feature-tab-btn active px-2.5 py-1 rounded-lg text-[11px] font-medium border border-blue-500 bg-blue-900/30 text-white">Dashboard</button>
+              <button data-tab="gallery" class="feature-tab-btn px-2.5 py-1 rounded-lg text-[11px] font-medium border border-slate-800 bg-slate-900/50 text-slate-400">Galeri</button>
+              <button data-tab="pin" class="feature-tab-btn px-2.5 py-1 rounded-lg text-[11px] font-medium border border-slate-800 bg-slate-900/50 text-slate-400">Kunci PIN</button>
+              <button data-tab="browser" class="feature-tab-btn px-2.5 py-1 rounded-lg text-[11px] font-medium border border-slate-800 bg-slate-900/50 text-slate-400">Stealth</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION (Bento Grid) -->
+  <section id="fitur" class="py-20 border-t border-slate-800/80 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold border border-blue-500/20">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Fitur Lengkap StoragePlus Basic</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Dirancang untuk Kecepatan, Keandalan, & Privasi Mutlak
+        </h2>
+        <p class="text-slate-400 text-base">
+          Setiap modul dalam StoragePlus dibangun dengan komponen native Android berkinerja tinggi untuk sinkronisasi tanpa kendala 24/7.
+        </p>
+      </div>
+
+      <!-- Bento Grid Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Feature 1: Background Media Observer -->
+        <div class="glass-card rounded-3xl p-7 space-y-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+              <i data-lucide="cloud-upload" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Auto-Backup Google Drive</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Memanfaatkan <code>MediaContentObserver</code> dan <code>MediaSyncForegroundService</code> native untuk mendeteksi setiap foto dan video baru seketika, langsung mengunggahnya ke Google Drive tanpa perlu membuka aplikasi secara manual.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-blue-400 font-medium">
+            <span>OAuth 2.0 Direct API</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+        </div>
+
+        <!-- Feature 2: Cloud Gallery Explorer -->
+        <div class="glass-card rounded-3xl p-7 space-y-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+              <i data-lucide="image" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Galeri Cloud & Unduh Ulang</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Jelajahi seluruh koleksi media yang telah tersimpan di cloud secara instan. Dilengkapi opsi multi-select untuk mengunduh kembali file asli kapan saja langsung ke folder <code>Download/StoragePlus</code>.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-cyan-400 font-medium">
+            <span>Filter Foto & Video Instan</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+        </div>
+
+        <!-- Feature 3: 6-Digit PIN Security -->
+        <div class="glass-card rounded-3xl p-7 space-y-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Proteksi Kunci PIN 6-Digit</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Akses aplikasi dilindungi oleh sistem kunci PIN 6-digit dengan animasi getar (haptic feedback) saat salah input. Konfigurasi tersimpan terenkripsi dengan opsi sinkronisasi database awan (Supabase).
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-amber-400 font-medium">
+            <span>Anti-Intruder Protection</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+        </div>
+
+        <!-- Feature 4: Battery & OEM Protection -->
+        <div class="glass-card rounded-3xl p-7 space-y-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <i data-lucide="battery-charging" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Smart Battery Optimization</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Dilengkapi <code>BatteryOptimizationHelper</code> untuk mencegah aplikasi dihentikan paksa oleh manajemen daya agresif OEM seperti Vivo (Funtouch OS), Xiaomi (MIUI/HyperOS), Oppo, dan Samsung.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-emerald-400 font-medium">
+            <span>Bypass Doze Mode Aman</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+        </div>
+
+        <!-- Feature 5: Hardware & Security Audit -->
+        <div class="glass-card rounded-3xl p-7 space-y-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Audit Hardware & Diagnostik</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Memiliki modul diagnostik terintegrasi (<code>SecurityAuditManager</code>) untuk memantau integritas sensor hardware kamera, status level baterai kritis, dan perizinan sistem secara real-time.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-purple-400 font-medium">
+            <span>Hardware Health Monitoring</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+        </div>
+
+        <!-- Feature 6: AdBlock & Background Streaming -->
+        <div class="glass-card rounded-3xl p-7 space-y-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
+              <i data-lucide="play-square" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Stealth AdBlock & Streaming</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Engine penjelajah tersembunyi dengan script injeksi AdBlock & pemutar audio/video latar belakang. Nikmati streaming musik (YouTube Music) tanpa jeda iklan dan tetap berputar saat layar padam.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-rose-400 font-medium">
+            <span>Background Playback & PiP</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE DEMO SECTION -->
+  <section id="demo" class="py-20 bg-slate-950/60 border-t border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Eksplorasi Antarmuka</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Jelajahi Setiap Sudut Aplikasi</h2>
+        <p class="text-slate-400 text-sm sm:text-base">Pilih tab di bawah untuk melihat simulasi alur kerja dan antarmuka StoragePlus Basic.</p>
+      </div>
+
+      <!-- Feature Interactive Walkthrough Tabs -->
+      <div class="grid lg:grid-cols-3 gap-8 items-center">
+        <!-- Tab Selectors -->
+        <div class="space-y-3">
+          <button data-tab="dashboard" class="feature-tab-btn active w-full p-4 rounded-2xl border text-left flex items-start gap-3.5 transition-all">
+            <div class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 shrink-0">
+              <i data-lucide="layout-dashboard" class="w-5 h-5 tab-icon"></i>
+            </div>
+            <div>
+              <div class="text-base font-bold text-white">1. Dashboard Monitoring</div>
+              <div class="text-xs text-slate-400 mt-1">Status real-time kuota Google Drive, saklar auto-backup, dan status daya baterai.</div>
+            </div>
+          </button>
+
+          <button data-tab="gallery" class="feature-tab-btn w-full p-4 rounded-2xl border text-left flex items-start gap-3.5 transition-all">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0">
+              <i data-lucide="image" class="w-5 h-5 tab-icon"></i>
+            </div>
+            <div>
+              <div class="text-base font-bold text-white">2. Galeri Cloud Terintegrasi</div>
+              <div class="text-xs text-slate-400 mt-1">Filter foto & video, multi-select download, dan pratinjau media resolusi tinggi.</div>
+            </div>
+          </button>
+
+          <button data-tab="pin" class="feature-tab-btn w-full p-4 rounded-2xl border text-left flex items-start gap-3.5 transition-all">
+            <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 shrink-0">
+              <i data-lucide="key-round" class="w-5 h-5 tab-icon"></i>
+            </div>
+            <div>
+              <div class="text-base font-bold text-white">3. Layar Kunci PIN Keamanan</div>
+              <div class="text-xs text-slate-400 mt-1">Keypad numerik custom, 6-digit proteksi, dan deteksi proteksi intrusi.</div>
+            </div>
+          </button>
+
+          <button data-tab="browser" class="feature-tab-btn w-full p-4 rounded-2xl border text-left flex items-start gap-3.5 transition-all">
+            <div class="p-2.5 rounded-xl bg-rose-500/10 text-rose-400 shrink-0">
+              <i data-lucide="radio" class="w-5 h-5 tab-icon"></i>
+            </div>
+            <div>
+              <div class="text-base font-bold text-white">4. Stealth Media Player</div>
+              <div class="text-xs text-slate-400 mt-1">Engine pemutar musik tanpa iklan, Picture-in-Picture, dan proteksi throttling.</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Center: Interactive Preview Explanation -->
+        <div class="lg:col-span-2 glass-panel p-8 rounded-3xl border border-slate-800">
+          <div class="flex items-center gap-3 pb-4 border-b border-slate-800">
+            <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+            <span class="text-xs font-mono text-slate-400 ml-2">com.mika.storageplus.ui.MainActivity</span>
+          </div>
+
+          <div class="py-6 space-y-6">
+            <div class="space-y-2">
+              <h3 class="text-2xl font-bold text-white">Arsitektur Background Service Teruji</h3>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                StoragePlus tidak sekadar mengunggah file biasa. Aplikasi ini menggunakan arsitektur <strong>Foreground Service berkategori DATA_SYNC</strong> yang dipadukan dengan <code>androidx.work.WorkManager</code>. Saat pengguna memotret gambar atau menerima video di WhatsApp, sistem mendeteksi URI baru dan menambahkan tugas unggah ke antrian sinkronisasi secara asinkron.
+              </p>
+            </div>
+
+            <!-- Highlights -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800/80 space-y-1">
+                <div class="text-xs font-bold text-blue-400 flex items-center gap-1.5">
+                  <i data-lucide="zap" class="w-4 h-4"></i>
+                  <span>Zero-Duplicate Guard</span>
+                </div>
+                <p class="text-xs text-slate-400">Database Room lokal mencatat file hash dan ID Google Drive agar tidak ada file ganda yang terunggah.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800/80 space-y-1">
+                <div class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                  <i data-lucide="shield" class="w-4 h-4"></i>
+                  <span>Enkripsi Kunci Aman</span>
+                </div>
+                <p class="text-xs text-slate-400">Token OAuth dan kredensial pengguna disimpan dalam ruang penyimpanan terenkripsi yang terlindungi.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 pt-2">
+              <a href="StoragePlus-Basic.apk" download="StoragePlus-Basic.apk" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Unduh StoragePlus-Basic.apk</span>
+              </a>
+              <a href="#spesifikasi" class="text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1">
+                <span>Lihat Spesifikasi & SHA-256</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIFICATIONS & CHECKSUM VERIFIER -->
+  <section id="spesifikasi" class="py-20 border-t border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">Spesifikasi Rilis</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Detail Teknis & Integritas APK</h2>
+        <p class="text-slate-400 text-base">Pastikan file APK yang Anda unduh berasal dari rilis resmi dengan memvalidasi hash kriptografis.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Specs Table (7 cols) -->
+        <div class="lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="info" class="w-5 h-5 text-blue-400"></i>
+            <span>Informasi Paket & Metadata</span>
+          </h3>
+
+          <div class="space-y-3.5 text-sm">
+            <div class="flex items-center justify-between py-2 border-b border-slate-800/80">
+              <span class="text-slate-400">Nama File</span>
+              <span class="font-mono font-semibold text-white">StoragePlus-Basic.apk</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-slate-800/80">
+              <span class="text-slate-400">Nama Aplikasi</span>
+              <span class="font-semibold text-white">StoragePlus (Basic Edition)</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-slate-800/80">
+              <span class="text-slate-400">Package Identifier</span>
+              <span class="font-mono text-xs text-blue-400 bg-blue-950/60 px-2 py-0.5 rounded border border-blue-900/60">com.mika.storageplus</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-slate-800/80">
+              <span class="text-slate-400">Ukuran File</span>
+              <span class="font-mono text-white font-semibold">13,167,128 bytes (12.56 MB)</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-slate-800/80">
+              <span class="text-slate-400">Kompatibilitas Android</span>
+              <span class="text-emerald-400 font-semibold">Android 8.0 (API 26) hingga Android 14+ (API 34)</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-slate-800/80">
+              <span class="text-slate-400">Framework UI</span>
+              <span class="text-slate-200">Jetpack Compose + Material Design 3</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-slate-800/80">
+              <span class="text-slate-400">Penyimpanan Cloud</span>
+              <span class="text-slate-200">Google Drive API (Direct Upload & Sync)</span>
+            </div>
+          </div>
+
+          <!-- Hashes -->
+          <div class="space-y-3 pt-2">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+                <span>SHA-256 Checksum:</span>
+                <button class="copy-btn hover:text-white flex items-center gap-1" data-copy="2e498da596c8c7e2150e3ba9b4cf90ee437509985bbd2c654a08ea94a4131aaa">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span>Salin SHA-256</span>
+                </button>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-slate-300 break-all select-all">
+                2e498da596c8c7e2150e3ba9b4cf90ee437509985bbd2c654a08ea94a4131aaa
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+                <span>MD5 Checksum:</span>
+                <button class="copy-btn hover:text-white flex items-center gap-1" data-copy="efa6a4075b74629f19b8678560efe142">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span>Salin MD5</span>
+                </button>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-slate-300 break-all select-all">
+                efa6a4075b74629f19b8678560efe142
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Live In-Browser Verifier Tool (5 cols) -->
+        <div class="lg:col-span-5 glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="space-y-2">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
+              <span>Verifikator Integritas File</span>
+            </h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Verifikasi keaslian file APK yang telah Anda unduh langsung di browser Anda menggunakan Web Crypto API. Tidak ada file yang diunggah ke internet.
+            </p>
+          </div>
+
+          <!-- Dropzone -->
+          <div id="apk-verify-area" class="border-2 border-dashed border-slate-700/80 hover:border-blue-500/80 rounded-2xl p-6 text-center cursor-pointer transition-colors bg-slate-950/40">
+            <input type="file" id="apk-verify-file" accept=".apk" class="hidden">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/30 text-blue-400 flex items-center justify-center mx-auto">
+                <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-white">Tarik & Lepas APK ke Sini</div>
+                <div class="text-xs text-slate-400 mt-0.5">atau ketuk untuk memilih StoragePlus-Basic.apk</div>
+              </div>
+              <div class="text-[10px] text-slate-500 uppercase font-mono">Dijalankan Lokal di Browser Anda</div>
+            </div>
+          </div>
+
+          <!-- Output Box -->
+          <div id="apk-verify-result" class="hidden space-y-3 p-4 rounded-xl bg-slate-950 border border-slate-800">
+            <div id="hash-match-status" class="text-xs"></div>
+            <div>
+              <div class="text-[10px] text-slate-400">Hasil SHA-256 File Anda:</div>
+              <div id="calculated-sha256" class="font-mono text-[10px] text-slate-300 break-all select-all mt-0.5"></div>
+            </div>
+          </div>
+
+          <!-- Direct Download CTA inside Specs -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-blue-900/30 to-cyan-900/20 border border-blue-500/30 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl overflow-hidden bg-blue-600 p-0.5 shrink-0">
+                <img src="assets/icon.png" alt="Icon" class="w-full h-full object-cover rounded-lg">
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white">Unduh Langsung</div>
+                <div class="text-xs text-slate-400">Versi Basic Siap Pasang</div>
+              </div>
+            </div>
+            <a href="StoragePlus-Basic.apk" download="StoragePlus-Basic.apk" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-colors">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Unduh Sekarang (12.56 MB)</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INSTALLATION & OEM OPTIMIZATION GUIDE -->
+  <section id="panduan" class="py-20 bg-slate-950/60 border-t border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Panduan Praktis</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Langkah Instalasi & Konfigurasi Daya</h2>
+        <p class="text-slate-400 text-base">Ikuti panduan berikut agar aplikasi dapat melakukan sinkronisasi tanpa kendala di sistem Android Anda.</p>
+      </div>
+
+      <!-- 4 Quick Install Steps -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-sm">
+            01
+          </div>
+          <h4 class="text-base font-bold text-white">Unduh APK</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Klik tombol <strong>Unduh StoragePlus-Basic.apk</strong> pada website ini untuk menyimpan file ke folder Download perangkat Anda.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-600/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold text-sm">
+            02
+          </div>
+          <h4 class="text-base font-bold text-white">Izinkan Sumber Ini</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Jika Android memunculkan peringatan keamanan, buka <em>Pengaturan</em> dan aktifkan <strong>"Izinkan pemasangan dari sumber ini"</strong>.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center font-bold text-sm">
+            03
+          </div>
+          <h4 class="text-base font-bold text-white">Buat 6-Digit PIN</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Saat pertama kali membuka aplikasi, tentukan 6-digit PIN keamanan Anda untuk mengunci dashboard dari akses orang lain.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-sm">
+            04
+          </div>
+          <h4 class="text-base font-bold text-white">Hubungkan Google Drive</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Sambungkan akun Google Drive Anda. Aktifkan toggle <em>Pencadangan Otomatis</em> untuk sinkronisasi otomatis di latar belakang.
+          </p>
+        </div>
+      </div>
+
+      <!-- OEM Specific Optimization Box -->
+      <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-800 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
+              <span>Optimasi Daya OEM (Penting untuk Background Sync)</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">
+              Beberapa merk smartphone (khususnya Vivo, Xiaomi, Oppo, dan Samsung) memiliki pembersih RAM agresif yang dapat mematikan proses background.
+            </p>
+          </div>
+
+          <!-- OEM Switcher Buttons -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button data-oem="vivo" class="oem-tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white transition-colors">Vivo / iQOO</button>
+            <button data-oem="xiaomi" class="oem-tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-colors">Xiaomi / POCO</button>
+            <button data-oem="oppo" class="oem-tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-colors">Oppo / Realme</button>
+            <button data-oem="samsung" class="oem-tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-colors">Samsung</button>
+          </div>
+        </div>
+
+        <!-- OEM Guides Panels -->
+        <!-- Vivo -->
+        <div id="oem-vivo" class="oem-guide-panel space-y-4">
+          <div class="text-sm font-semibold text-blue-400">Pengaturan untuk Funtouch OS / OriginOS (Vivo V2029 & Seri Lainnya):</div>
+          <ol class="list-decimal list-inside space-y-2 text-xs text-slate-300 leading-relaxed">
+            <li>Buka <strong>Pengaturan &gt; Baterai &gt; Manajemen Konsumsi Daya Latar Belakang</strong>.</li>
+            <li>Cari <strong>StoragePlus</strong> dan ubah pengaturannya menjadi <strong>"Izinkan Konsumsi Daya Latar Belakang Tinggi"</strong> (High Background Power Usage).</li>
+            <li>Buka <strong>i Manager &gt; Manajemen Izin &gt; Mulai Otomatis (Autostart)</strong> dan aktifkan untuk StoragePlus.</li>
+            <li>Di menu Recent Apps, tarik ke bawah kartu StoragePlus lalu ketuk ikon <strong>Gembok (Lock)</strong> agar tidak terhapus saat membersihkan RAM.</li>
+          </ol>
+        </div>
+
+        <!-- Xiaomi -->
+        <div id="oem-xiaomi" class="oem-guide-panel hidden space-y-4">
+          <div class="text-sm font-semibold text-blue-400">Pengaturan untuk MIUI / Xiaomi HyperOS:</div>
+          <ol class="list-decimal list-inside space-y-2 text-xs text-slate-300 leading-relaxed">
+            <li>Tekan lama ikon aplikasi StoragePlus &gt; pilih <strong>Info Aplikasi (App Info)</strong>.</li>
+            <li>Aktifkan saklar <strong>Mulai Otomatis (Autostart)</strong>.</li>
+            <li>Gulir ke bawah ke menu <strong>Penghemat Baterai (Battery Saver)</strong> &gt; pilih <strong>"Tidak Ada Pembatasan" (No Restrictions)</strong>.</li>
+            <li>Kunci aplikasi di menu Recent Apps dengan ikon gembok.</li>
+          </ol>
+        </div>
+
+        <!-- Oppo -->
+        <div id="oem-oppo" class="oem-guide-panel hidden space-y-4">
+          <div class="text-sm font-semibold text-blue-400">Pengaturan untuk ColorOS / Realme UI:</div>
+          <ol class="list-decimal list-inside space-y-2 text-xs text-slate-300 leading-relaxed">
+            <li>Buka <strong>Pengaturan &gt; Baterai &gt; Manajemen Aplikasi Baterai</strong>.</li>
+            <li>Pilih <strong>StoragePlus</strong> &gt; aktifkan <strong>"Izinkan Aktivitas Latar Depan & Belakang"</strong> serta <strong>"Izinkan Peluncuran Otomatis"</strong>.</li>
+            <li>Matikan opsi <em>Optimalkan Otomatis di Malam Hari</em> jika sinkronisasi ingin tetap berjalan saat tidur.</li>
+          </ol>
+        </div>
+
+        <!-- Samsung -->
+        <div id="oem-samsung" class="oem-guide-panel hidden space-y-4">
+          <div class="text-sm font-semibold text-blue-400">Pengaturan untuk Samsung One UI:</div>
+          <ol class="list-decimal list-inside space-y-2 text-xs text-slate-300 leading-relaxed">
+            <li>Buka <strong>Pengaturan &gt; Perawatan Perangkat &gt; Baterai &gt; Batas Penggunaan Latar Belakang</strong>.</li>
+            <li>Pastikan StoragePlus <strong>TIDAK berada</strong> di dalam daftar <em>Aplikasi yang masuk mode tidur</em>.</li>
+            <li>Tambahkan StoragePlus ke daftar <strong>"Aplikasi yang tidak pernah tidur" (Never sleeping apps)</strong>.</li>
+            <li>Pada Info Aplikasi, pilih Baterai &gt; centang <strong>"Tidak Dibatasi" (Unrestricted)</strong>.</li>
+          </ol>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq" class="py-20 border-t border-slate-800/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center space-y-4 mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">FAQ</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Pertanyaan yang Sering Diajukan</h2>
+        <p class="text-slate-400 text-base">Jawaban lengkap seputar cara kerja, privasi, dan kompatibilitas StoragePlus Basic.</p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item glass-card rounded-2xl overflow-hidden border border-slate-800">
+          <button class="faq-trigger w-full p-5 text-left flex items-center justify-between text-base font-semibold text-white hover:text-blue-400 transition-colors">
+            <span>Apakah StoragePlus aman untuk akun Google Drive saya?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60">
+            Ya, sangat aman. StoragePlus menggunakan protokol otentikasi resmi Google OAuth 2.0. Kredensial dan token akses disimpan secara aman di perangkat lokal menggunakan enkripsi Android Keystore, tanpa ada pembagian password ke server pihak ketiga. File dicadangkan langsung dari perangkat ke akun Google Drive pribadi Anda.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item glass-card rounded-2xl overflow-hidden border border-slate-800">
+          <button class="faq-trigger w-full p-5 text-left flex items-center justify-between text-base font-semibold text-white hover:text-blue-400 transition-colors">
+            <span>Mengapa aplikasi membutuhkan izin Latar Belakang (Foreground Service)?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60">
+            Izin Foreground Service (tipe DATA_SYNC) diperlukan oleh Android 10+ agar proses pengunggahan foto dan video ukuran besar tidak diputus di tengah jalan saat Anda beralih ke aplikasi lain atau mematikan layar HP. Notifikasi sinkronisasi aktif memberi transparansi penuh saat proses backup berlangsung.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item glass-card rounded-2xl overflow-hidden border border-slate-800">
+          <button class="faq-trigger w-full p-5 text-left flex items-center justify-between text-base font-semibold text-white hover:text-blue-400 transition-colors">
+            <span>Di folder mana file yang diunduh kembali dari Galeri Cloud disimpan?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60">
+            Setiap file foto atau video yang Anda unduh melalui menu <em>Galeri Cloud</em> akan otomatis disimpan di penyimpanan internal perangkat pada folder <code>Download/StoragePlus/</code> sehingga mudah ditemukan melalui aplikasi File Manager maupun Galeri bawaan HP.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item glass-card rounded-2xl overflow-hidden border border-slate-800">
+          <button class="faq-trigger w-full p-5 text-left flex items-center justify-between text-base font-semibold text-white hover:text-blue-400 transition-colors">
+            <span>Bagaimana jika saya lupa 6-digit PIN keamanan aplikasi?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60">
+            Konfigurasi PIN terhubung ke backend tersinkronisasi. Jika lupa PIN, Anda dapat melakukan reset konfigurasi melalui portal akun terdaftar atau melakukan inisialisasi ulang data aplikasi melalui menu Pengaturan Android &gt; Aplikasi &gt; StoragePlus &gt; Hapus Data.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item glass-card rounded-2xl overflow-hidden border border-slate-800">
+          <button class="faq-trigger w-full p-5 text-left flex items-center justify-between text-base font-semibold text-white hover:text-blue-400 transition-colors">
+            <span>Apa itu fitur Stealth Streaming Engine & AdBlock di dalam aplikasi?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content hidden p-5 pt-0 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60">
+            StoragePlus Basic menyertakan WebView engine khusus yang dioptimalkan dengan ad-pruning dan background playback. Fitur ini memungkinkan Anda mendengarkan streaming musik atau video edukasi tanpa interupsi iklan, dan audio tetap berputar bahkan ketika layar perangkat dimatikan atau saat berada dalam mode Picture-in-Picture.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA DOWNLOAD BANNER -->
+  <section class="py-20 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="glass-panel p-8 sm:p-14 rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-950/60 via-slate-900/80 to-cyan-950/40 shadow-2xl text-center space-y-6">
+        
+        <div class="w-16 h-16 rounded-3xl bg-blue-600 p-1 mx-auto shadow-xl shadow-blue-500/30">
+          <img src="assets/icon.png" alt="StoragePlus Logo" class="w-full h-full object-cover rounded-2xl">
+        </div>
+
+        <div class="space-y-2 max-w-2xl mx-auto">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Amankan File & Cadangkan Media Sekarang</h2>
+          <p class="text-slate-300 text-sm sm:text-base">
+            Dapatkan file instalasi resmi <code>StoragePlus-Basic.apk</code> untuk perangkat Android Anda tanpa ribet.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+          <a href="StoragePlus-Basic.apk" download="StoragePlus-Basic.apk" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-base shadow-xl shadow-blue-600/30 hover:-translate-y-0.5 transition-all">
+            <i data-lucide="download" class="w-5 h-5"></i>
+            <span>Unduh StoragePlus-Basic.apk (12.6 MB)</span>
+          </a>
+          <a href="#spesifikasi" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-semibold text-sm transition-colors">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+            <span>Verifikasi SHA-256</span>
+          </a>
+        </div>
+
+        <p class="text-[11px] text-slate-500">
+          Mendukung Android 8.0 Oreo hingga Android 14/15. Tidak memerlukan akses root.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-12 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-xl overflow-hidden bg-blue-600 p-0.5">
+            <img src="assets/icon.png" alt="StoragePlus Logo" class="w-full h-full object-cover rounded-lg">
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">StoragePlus Basic</div>
+            <p class="text-[11px] text-slate-500">Auto-Backup & Secure Media Sync for Android</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-6 text-slate-400">
+          <a href="#fitur" class="hover:text-white transition-colors">Fitur</a>
+          <a href="#demo" class="hover:text-white transition-colors">Demo</a>
+          <a href="#spesifikasi" class="hover:text-white transition-colors">Spesifikasi</a>
+          <a href="#panduan" class="hover:text-white transition-colors">Panduan</a>
+          <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+          <a href="StoragePlus-Basic.apk" download="StoragePlus-Basic.apk" class="text-blue-400 hover:text-blue-300 font-semibold">Unduh APK</a>
+        </div>
+
+        <div class="text-slate-500 text-center md:text-right">
+          &copy; 2026 StoragePlus by Mika. Hak Cipta Dilindungi.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
+
