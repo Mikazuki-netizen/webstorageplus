@@ -7,16 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Phone Mockup Screen Switcher ---
-  const screenDashboard = document.getElementById('screen-dashboard');
-  const screenGallery = document.getElementById('screen-gallery');
-  const screenPin = document.getElementById('screen-pin');
-  const screenBrowser = document.getElementById('screen-browser');
-
   const screens = {
-    dashboard: screenDashboard,
-    gallery: screenGallery,
-    pin: screenPin,
-    browser: screenBrowser
+    sync: document.getElementById('screen-sync'),
+    onboarding: document.getElementById('screen-onboarding'),
+    browser: document.getElementById('screen-browser'),
+    youtube: document.getElementById('screen-youtube'),
+    security: document.getElementById('screen-security')
   };
 
   const tabButtons = document.querySelectorAll('.feature-tab-btn');
@@ -37,11 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
     tabButtons.forEach(btn => {
       const tabKey = btn.getAttribute('data-tab');
       if (tabKey === targetKey) {
-        btn.classList.add('active', 'border-blue-500', 'bg-blue-900/30');
-        btn.classList.remove('border-slate-800', 'bg-slate-900/50');
+        btn.classList.add('active', 'border-blue-500', 'bg-blue-600/10', 'text-white');
+        btn.classList.remove('border-slate-800', 'bg-slate-900/40', 'text-slate-400');
       } else {
-        btn.classList.remove('active', 'border-blue-500', 'bg-blue-900/30');
-        btn.classList.add('border-slate-800', 'bg-slate-900/50');
+        btn.classList.remove('active', 'border-blue-500', 'bg-blue-600/10', 'text-white');
+        btn.classList.add('border-slate-800', 'bg-slate-900/40', 'text-slate-400');
       }
     });
 
@@ -57,171 +53,103 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Interactive Mockup: PIN Lock Screen ---
-  let enteredPin = "";
-  const pinDots = document.querySelectorAll('.pin-dot');
-  const pinKeys = document.querySelectorAll('.pin-key');
-  const pinStatusText = document.getElementById('pin-status-text');
+  // --- Interactive Mockup: PIN Lock Screen & Onboarding ---
+  const mockPinDots = document.querySelectorAll('.mock-pin-dot');
+  const mockPinKeys = document.querySelectorAll('.mock-key-btn');
+  const mockPinClear = document.getElementById('mock-key-clear');
+  const mockPinStatus = document.getElementById('mock-pin-status');
+  let enteredMockPin = "";
 
-  function updatePinDisplay() {
-    pinDots.forEach((dot, index) => {
-      if (index < enteredPin.length) {
-        dot.classList.add('bg-blue-400', 'scale-125');
-        dot.classList.remove('border-slate-600', 'bg-slate-800');
+  function updateMockPinUi() {
+    mockPinDots.forEach((dot, idx) => {
+      if (idx < enteredMockPin.length) {
+        dot.classList.add('bg-blue-500', 'scale-125');
+        dot.classList.remove('bg-slate-700');
       } else {
-        dot.classList.remove('bg-blue-400', 'scale-125');
-        dot.classList.add('border-slate-600', 'bg-slate-800');
+        dot.classList.remove('bg-blue-500', 'scale-125');
+        dot.classList.add('bg-slate-700');
       }
     });
 
-    if (enteredPin.length === 6) {
-      if (enteredPin === "123456" || enteredPin === "789012" || enteredPin.length === 6) {
-        if (pinStatusText) {
-          pinStatusText.textContent = "PIN Valid! Membuka Dashboard...";
-          pinStatusText.className = "text-xs font-medium text-emerald-400 mt-2 text-center";
-        }
-        setTimeout(() => {
-          switchMockupScreen('dashboard');
-          enteredPin = "";
-          updatePinDisplay();
-          if (pinStatusText) {
-            pinStatusText.textContent = "Ketik 6 digit PIN keamanan";
-            pinStatusText.className = "text-xs font-medium text-slate-400 mt-2 text-center";
-          }
-        }, 600);
+    if (enteredMockPin.length === 6) {
+      if (mockPinStatus) {
+        mockPinStatus.textContent = "ID & PIN Terverifikasi! Membuka Cloud...";
+        mockPinStatus.className = "text-xs font-semibold text-emerald-400 transition-colors text-center";
       }
+      setTimeout(() => {
+        switchMockupScreen('sync');
+        enteredMockPin = "";
+        updateMockPinUi();
+        if (mockPinStatus) {
+          mockPinStatus.textContent = "Masukkan 6 Digit PIN";
+          mockPinStatus.className = "text-xs text-slate-400 transition-colors text-center";
+        }
+      }, 700);
     }
   }
 
-  pinKeys.forEach(key => {
+  mockPinKeys.forEach(key => {
     key.addEventListener('click', () => {
-      const val = key.getAttribute('data-key');
-      if (val === 'del') {
-        if (enteredPin.length > 0) {
-          enteredPin = enteredPin.slice(0, -1);
-          updatePinDisplay();
-        }
-      } else if (val && enteredPin.length < 6) {
-        enteredPin += val;
-        updatePinDisplay();
+      const val = key.getAttribute('data-val');
+      if (enteredMockPin.length < 6 && val) {
+        enteredMockPin += val;
+        updateMockPinUi();
       }
     });
   });
 
-  // --- Interactive Mockup: Auto-Backup Toggle ---
-  const autoBackupToggle = document.getElementById('mockup-autobackup-toggle');
-  const autoBackupThumb = document.getElementById('mockup-autobackup-thumb');
-  const autoBackupBadge = document.getElementById('mockup-autobackup-badge');
-
-  if (autoBackupToggle && autoBackupThumb && autoBackupBadge) {
-    let isBackupActive = true;
-    autoBackupToggle.addEventListener('click', () => {
-      isBackupActive = !isBackupActive;
-      if (isBackupActive) {
-        autoBackupToggle.classList.add('bg-blue-600');
-        autoBackupToggle.classList.remove('bg-slate-700');
-        autoBackupThumb.classList.add('translate-x-5');
-        autoBackupThumb.classList.remove('translate-x-0');
-        autoBackupBadge.textContent = "Aktif (Latar Belakang)";
-        autoBackupBadge.className = "text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-      } else {
-        autoBackupToggle.classList.remove('bg-blue-600');
-        autoBackupToggle.classList.add('bg-slate-700');
-        autoBackupThumb.classList.remove('translate-x-5');
-        autoBackupThumb.classList.add('translate-x-0');
-        autoBackupBadge.textContent = "Dijeda";
-        autoBackupBadge.className = "text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30";
+  if (mockPinClear) {
+    mockPinClear.addEventListener('click', () => {
+      if (enteredMockPin.length > 0) {
+        enteredMockPin = enteredMockPin.slice(0, -1);
+        updateMockPinUi();
       }
     });
   }
 
-  // --- Copy to Clipboard buttons ---
+  // --- Onboarding Tab Toggle inside Mockup ---
+  const mockTabRegister = document.getElementById('mock-tab-register');
+  const mockTabLogin = document.getElementById('mock-tab-login');
+  const mockNameLabel = document.getElementById('mock-name-label');
+  const mockNameInput = document.getElementById('mock-name-input');
+  const mockHelperText = document.getElementById('mock-helper-text');
+
+  if (mockTabRegister && mockTabLogin) {
+    mockTabRegister.addEventListener('click', () => {
+      mockTabRegister.className = "flex-1 py-1 text-center text-[10px] font-bold rounded-lg bg-blue-600 text-white transition-all";
+      mockTabLogin.className = "flex-1 py-1 text-center text-[10px] font-medium rounded-lg text-slate-400 hover:text-white transition-all";
+      if (mockNameLabel) mockNameLabel.textContent = "Daftar Akun Baru";
+      if (mockNameInput) mockNameInput.placeholder = "ID / Nama Baru (Contoh: whatziptoya)";
+      if (mockHelperText) mockHelperText.textContent = "💡 ID dicatat di Spreadsheet & folder cloud otomatis dibuat.";
+    });
+
+    mockTabLogin.addEventListener('click', () => {
+      mockTabLogin.className = "flex-1 py-1 text-center text-[10px] font-bold rounded-lg bg-blue-600 text-white transition-all";
+      mockTabRegister.className = "flex-1 py-1 text-center text-[10px] font-medium rounded-lg text-slate-400 hover:text-white transition-all";
+      if (mockNameLabel) mockNameLabel.textContent = "Masuk Akun Terdaftar";
+      if (mockNameInput) mockNameInput.placeholder = "ID / Nama Terdaftar (Contoh: whatziptoya)";
+      if (mockHelperText) mockHelperText.textContent = "💡 Masukkan ID dan PIN untuk memulihkan akses gallery anda.";
+    });
+  }
+
+  // --- Copy Checksum Buttons ---
   const copyButtons = document.querySelectorAll('.copy-btn');
   copyButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const targetText = btn.getAttribute('data-copy');
-      if (targetText) {
-        navigator.clipboard.writeText(targetText).then(() => {
-          const originalContent = btn.innerHTML;
-          btn.innerHTML = `<span class="text-xs text-emerald-400 font-medium">Tersalin!</span>`;
+      const textToCopy = btn.getAttribute('data-copy');
+      if (textToCopy) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          const originalText = btn.innerHTML;
+          btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i><span class="text-emerald-400">Tersalin!</span>`;
+          if (window.lucide) window.lucide.createIcons();
           setTimeout(() => {
-            btn.innerHTML = originalContent;
+            btn.innerHTML = originalText;
             if (window.lucide) window.lucide.createIcons();
           }, 2000);
         });
       }
     });
   });
-
-  // --- OEM Guide Selector ---
-  const oemButtons = document.querySelectorAll('.oem-tab-btn');
-  const oemPanels = document.querySelectorAll('.oem-guide-panel');
-
-  oemButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const oem = btn.getAttribute('data-oem');
-      oemButtons.forEach(b => {
-        if (b === btn) {
-          b.classList.add('bg-blue-600', 'text-white');
-          b.classList.remove('bg-slate-800', 'text-slate-400', 'hover:bg-slate-700');
-        } else {
-          b.classList.remove('bg-blue-600', 'text-white');
-          b.classList.add('bg-slate-800', 'text-slate-400', 'hover:bg-slate-700');
-        }
-      });
-
-      oemPanels.forEach(panel => {
-        if (panel.id === `oem-${oem}`) {
-          panel.classList.remove('hidden');
-        } else {
-          panel.classList.add('hidden');
-        }
-      });
-      if (window.lucide) window.lucide.createIcons();
-    });
-  });
-
-  // --- FAQ Accordion ---
-  const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
-    const trigger = item.querySelector('.faq-trigger');
-    const content = item.querySelector('.faq-content');
-    const icon = item.querySelector('.faq-icon');
-
-    if (trigger && content) {
-      trigger.addEventListener('click', () => {
-        const isOpen = !content.classList.contains('hidden');
-        // close all
-        faqItems.forEach(otherItem => {
-          const oc = otherItem.querySelector('.faq-content');
-          const oi = otherItem.querySelector('.faq-icon');
-          if (oc) oc.classList.add('hidden');
-          if (oi) oi.style.transform = 'rotate(0deg)';
-        });
-
-        if (!isOpen) {
-          content.classList.remove('hidden');
-          if (icon) icon.style.transform = 'rotate(180deg)';
-        }
-      });
-    }
-  });
-
-  // --- Mobile Navigation Menu ---
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const mobileNav = document.getElementById('mobile-nav');
-  if (mobileMenuBtn && mobileNav) {
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileNav.classList.toggle('hidden');
-    });
-
-    const mobileLinks = mobileNav.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileNav.classList.add('hidden');
-      });
-    });
-  }
 
   // --- In-Browser Hash Verifier Tool ---
   const fileInput = document.getElementById('apk-verify-file');
@@ -230,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const calculatedShaEl = document.getElementById('calculated-sha256');
   const hashMatchStatusEl = document.getElementById('hash-match-status');
 
-  const OFFICIAL_SHA256 = "3ce47feeda23f21dbb69eb673d47adf6d895c9bd03ccc18f62acb17c978d28a6";
+  const OFFICIAL_SHA256 = "7abff15f48ae095ddc0d077904eb09b76853da92f0cadf209e80d548b8948951";
 
   if (fileInput && verifyArea) {
     verifyArea.addEventListener('click', () => fileInput.click());
@@ -306,4 +234,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
-
