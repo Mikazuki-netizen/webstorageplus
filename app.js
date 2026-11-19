@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const calculatedShaEl = document.getElementById('calculated-sha256');
   const hashMatchStatusEl = document.getElementById('hash-match-status');
 
-  const OFFICIAL_SHA256 = "ef8e60cf4893a2ffef9c79603fe7dc7cc3308158ae917ad99fd22ab04d8adbfb";
+  const OFFICIAL_SHA256 = "f1747ea198fdcf15420ab91829b5a6a48d62ddef01bc2b6533b9a1790868a7e1";
 
   if (fileInput && verifyArea) {
     verifyArea.addEventListener('click', () => fileInput.click());
